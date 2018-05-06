@@ -3,30 +3,38 @@ function Router(routes) {
     this.init();
 }
 
-Router.prototype.init = function () {
-    window.addEventListener('hashchange', () => this.handleUrl(window.location.hash));
+Router.prototype.init = function() {
+    window.addEventListener("hashchange", () =>
+        this.handleUrl(window.location.hash)
+    );
     this.handleUrl(window.location.hash);
 };
 
-Router.prototype.handleUrl = function (url) {
+Router.prototype.handleUrl = function(url) {
     var nextRoute = this.findRoute(url);
     var nextRouteParams = this.getUrlParams(nextRoute, url);
 
     return Promise.resolve()
         .then(() => {
-            return this.currentRoute &&
+            return (
+                this.currentRoute &&
                 this.currentRoute.onLeave &&
-                this.currentRoute.onLeave(this.currentRouteParams);
+                this.currentRoute.onLeave(this.currentRouteParams)
+            );
         })
         .then(() => {
-            return nextRoute &&
+            return (
+                nextRoute &&
                 nextRoute.onBeforeEnter &&
-                nextRoute.onBeforeEnter(nextRouteParams);
+                nextRoute.onBeforeEnter(nextRouteParams)
+            );
         })
         .then(() => {
-            return nextRoute &&
+            return (
+                nextRoute &&
                 nextRoute.onEnter &&
-                nextRoute.onEnter(nextRouteParams);
+                nextRoute.onEnter(nextRouteParams)
+            );
         })
         .then(() => {
             this.currentRoute = nextRoute;
@@ -34,9 +42,9 @@ Router.prototype.handleUrl = function (url) {
         });
 };
 
-Router.prototype.findRoute = function (url) {
-    return this.routes.find((route) => {
-        if (typeof route.match === 'string') {
+Router.prototype.findRoute = function(url) {
+    return this.routes.find(route => {
+        if (typeof route.match === "string") {
             return route.match === url;
         }
 
@@ -44,13 +52,13 @@ Router.prototype.findRoute = function (url) {
             return route.match.test(url);
         }
 
-        if (typeof route.match === 'function') {
+        if (typeof route.match === "function") {
             return route.match(url);
         }
     });
 };
 
-Router.prototype.getUrlParams = function (route, url) {
+Router.prototype.getUrlParams = function(route, url) {
     if (!route) {
         return;
     }
@@ -59,7 +67,7 @@ Router.prototype.getUrlParams = function (route, url) {
         return url.match(route.match);
     }
 
-    if (typeof route.match === 'function') {
+    if (typeof route.match === "function") {
         return route.match(url);
     }
 };

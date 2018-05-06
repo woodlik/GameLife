@@ -6,7 +6,7 @@ export default StyleSheet.create({
     'display': 'inline-block'
   },
   'textView': {
-    'fontSize': [{ 'unit': 'px', 'value': 30 }],
+    'fontSize': [{ 'unit': 'px', 'value': 20 }],
     'fontFamily': 'monospace',
     'margin': [{ 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }, { 'unit': 'px', 'value': 0 }],
     'whiteSpace': 'pre-wrap'
